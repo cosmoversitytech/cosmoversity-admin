@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import RichTextEditor from "@/components/RichTextEditor";
+import router from "next/router";
 
 interface School {
   id: number;
@@ -228,6 +229,8 @@ export default function AddProgramPage() {
       ) as HTMLInputElement;
       if (bannerInput) bannerInput.value = "";
       if (brochureInput) brochureInput.value = "";
+
+      router.push("/programs");
     } catch (err) {
       console.error("Unexpected error:", err);
       alert("An unexpected error occurred. Please try again.");
