@@ -53,6 +53,7 @@ export default function EditProgramPage() {
   );
   const [partnerUniversities, setPartnerUniversities] = useState<string[]>([]);
   const [programDetails, setProgramDetails] = useState("");
+  const [featured, setFeatured] = useState(false);
   const [schools, setSchools] = useState<School[]>([]);
   const [categories, setCategories] = useState<SchoolCategory[]>([]);
   const [universities, setUniversities] = useState<University[]>([]);
@@ -84,6 +85,7 @@ export default function EditProgramPage() {
           setCurrentBrochureUrl(data.brochure);
           setPartnerUniversities(data.universities || []);
           setProgramDetails(data.details || "");
+          setFeatured(data.featured || false);
         }
       } catch (err) {
         console.error("Unexpected error:", err);
@@ -249,6 +251,7 @@ export default function EditProgramPage() {
           brochure: brochureUrl,
           universities: partnerUniversities,
           details: programDetails,
+          featured: featured,
         })
         .eq("id", programId)
         .select();
@@ -439,6 +442,23 @@ export default function EditProgramPage() {
             onChange={setProgramDetails}
             placeholder="Enter detailed information about the program..."
           />
+        </div>
+
+        {/* Featured (Checkbox) */}
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id="featured"
+            checked={featured}
+            onChange={(e) => setFeatured(e.target.checked)}
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label
+            htmlFor="featured"
+            className="ml-2 block text-sm font-medium text-gray-700"
+          >
+            Mark as Featured
+          </label>
         </div>
 
         <div className="flex gap-4">
